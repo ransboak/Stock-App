@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Comment;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +17,16 @@ namespace api.Repository
         {
             _context = context;
         }
-        public Task<Comment> CreateAsync()
+
+        public  async Task<Comment> CreateAsync(Comment commentModel)
         {
-            throw new NotImplementedException();
+            await _context.Comments.AddAsync(commentModel);
+            await _context.SaveChangesAsync();
+
+            return commentModel;
         }
 
-        public Task<Comment?> DeleteAsync()
+        public Task<Comment?> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -31,14 +36,34 @@ namespace api.Repository
             return await _context.Comments.ToListAsync();
         }
 
-        public Task<Comment?> GetByIdAsync()
+        public async Task<Comment?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(comment == null){
+                return null;
+            }
+
+            return comment;
+
         }
 
-        public Task<Comment?> UpdateAsync()
+        public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto commentModel)
         {
-            throw new NotImplementedException();
+            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(comment == null){
+                return null;
+            }
+
+            comment.Content = commentModel.Content;
+            comment.Title = commentModel.Title;
+
+            await _context.SaveChangesAsync();
+
+            return comment;
+
+
         }
     }
 }
