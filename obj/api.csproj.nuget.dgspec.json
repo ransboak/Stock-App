@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj": {}
+    "C:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj": {
+    "C:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "c:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\api.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\Dotnet\\webapi\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
