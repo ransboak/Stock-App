@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Comment;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace api.Repository
             _context = context;
         }
 
-        public  async Task<Comment> CreateAsync(Comment commentModel)
+        public async Task<Comment> CreateAsync(Comment commentModel)
         {
             await _context.Comments.AddAsync(commentModel);
             await _context.SaveChangesAsync();
@@ -30,7 +31,8 @@ namespace api.Repository
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
 
-            if(comment == null){
+            if (comment == null)
+            {
                 return null;
             }
 
@@ -40,16 +42,29 @@ namespace api.Repository
             return comment;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            return await _context.Comments.Include(a => a.AppUser).ToListAsync();
+            var comments = _context.Comments.Include(a => a.AppUser).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                comments = comments.Where(s => s.Stock.Symbol == queryObject.Symbol);
+            };
+
+            if (queryObject.isDescending == true)
+            {
+                comments = comments.OrderByDescending(c => c.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
         {
             var comment = await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(x => x.Id == id);
 
-            if(comment == null){
+            if (comment == null)
+            {
                 return null;
             }
 
@@ -61,7 +76,8 @@ namespace api.Repository
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
 
-            if(comment == null){
+            if (comment == null)
+            {
                 return null;
             }
 
