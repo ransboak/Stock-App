@@ -59,7 +59,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             var stockModel = stockDto.ToStockFromCreateDTO();
             await _stockRepo.CreateAsync(stockModel);
-            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto());
+            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id },  new { success = true, data = stockModel.ToStockDto() });
         }
 
         [HttpPut("{id:int}")]
